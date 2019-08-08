@@ -59,6 +59,14 @@
             <version>3.0.8</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.scalacheck/scalacheck -->
+        <dependency>
+            <groupId>org.scalacheck</groupId>
+            <artifactId>scalacheck_sjs0.6_2.12</artifactId>
+            <version>1.14.0</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>io.spray</groupId>
