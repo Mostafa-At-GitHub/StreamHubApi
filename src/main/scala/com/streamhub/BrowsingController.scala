@@ -1,6 +1,9 @@
 package com.streamhub
 import java.sql.Date
+
+import Utils._
 import java.time.{LocalDate => JavaLocalDate}
+
 import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
@@ -8,8 +11,9 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.unmarshalling.Unmarshaller
-import com.streamhub.BrowsingRepository.QueryBrowsingData
-import com.streamhub.BrowsingRepository.{BrowsingHits, BrowsingNotFoundException, queryParam}
+import com.streamhub.BrowsingMetaData.QueryBrowsingData
+//import com.streamhub.BrowsingRepository.QueryBrowsingData
+import com.streamhub.BrowsingMetaData.{BrowsingHits, BrowsingNotFoundException, queryParam}
 import spray.json.{DefaultJsonProtocol, JsString, JsValue, JsonFormat, _}
 import scala.util.{Failure, Success, Try}
 
@@ -39,7 +43,7 @@ object BrowsingController {
 
 }
 
-trait BrowsingController extends BrowsingRepository {
+trait BrowsingController  {
 
   /**
    * The Actor system to be used by the Future Context.
