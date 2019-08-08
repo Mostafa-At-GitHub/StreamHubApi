@@ -10,7 +10,7 @@ import scala.concurrent.duration.Duration
 
 object StreamHubMain extends App with BrowsingController {
 
-  implicit val actorSystem: ActorSystem = ActorSystem("AkkaHTTPExampleServices")
+  implicit val actorSystem: ActorSystem = ActorSystem("AkkaHttpStreamHubService")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   lazy val apiRoutes: Route = pathPrefix("api") {

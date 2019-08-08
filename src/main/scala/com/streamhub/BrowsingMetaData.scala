@@ -11,7 +11,7 @@ object BrowsingMetaData {
 
   case class queryParam(group: String, metric: String, startDate: LocalDate, endDate: LocalDate){
     require(!group.isEmpty, "group name must not be empty")
-    require(!metric.isEmpty, "group name must not be empty")
+    require(!metric.isEmpty, "metric name must not be empty")
     require(startDate.isBefore(endDate), "startDate must be before endDate")
     require(startDate != null, "startDate must not be null")
     require(endDate != null, "endDate must not be null")

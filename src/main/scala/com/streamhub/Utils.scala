@@ -2,18 +2,19 @@ package com.streamhub
 
 import java.time.LocalDate
 import akka.pattern.after
-import com.streamhub.BrowsingMetaData.{BrowsingHits, BrowsingNotFoundException, BrowsingTransactions}
+import com.streamhub.BrowsingMetaData.{BrowsingHits, BrowsingNotFoundException, BrowsingTransactions, queryParam}
 import com.streamhub.RepositoryContext.{scheduler, _}
 import scala.concurrent.Future
 import scala.concurrent.duration._
 import BrowsingRepositoryDB.BrowsingHistDB
+
 object Utils {
+
   /**
-   * Fetch the employee records with a mocked delay to synthesize transaction delays.
+   * Fetch the browsing records with a mocked delay to synthesize transaction delays.
    */
   private def fetchDBWithDelay(): Future[Seq[BrowsingTransactions]] = {
-    val randomDuration = (Math.random() * 5 + 3).toInt.seconds
-    after(randomDuration, scheduler) {
+    after(1.seconds, scheduler) {
       Future {
         BrowsingHistDB
       }
@@ -23,13 +24,13 @@ object Utils {
   /**
    * heavy query get the number of unique hits
    *
-   * @param group
+   * @param param
    * @return
    */
-  def getNumberOfUniqueHitsPerGroup(group: String,startDate:LocalDate,endDate:LocalDate): Future[BrowsingHits] = {
+  def getNumberOfUniqueHitsPerGroup(param:queryParam): Future[BrowsingHits] = {
     fetchDBWithDelay().map {
       db => BrowsingHits(
-        db.filter(x=> {x.group == group && x.transactionDate.isAfter(startDate) && x.transactionDate.isBefore(endDate)    } )
+        db.filter(x=> {x.group == param.group && x.transactionDate.isAfter(param.startDate) && x.transactionDate.isBefore(param.endDate)    } )
           .map(_.id).toSet.size)
     }
   }
